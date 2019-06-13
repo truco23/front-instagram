@@ -1,6 +1,6 @@
-form#new-post {
+.form {
   width: 100%;
-  max-width: 580px;
+  max-width: 500px;
   margin: 30px auto 0;
   padding: 30px;
   background: #fff;
@@ -10,11 +10,16 @@ form#new-post {
   flex-direction: column;
 }
 
-form#new-post input {
-  margin-bottom: 10px;
+fieldset {
+  border: none;
 }
 
-form#new-post input[type=text] {
+.form-input {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.form-input[type=text] {
   height: 38px;
   border-radius: 4px;
   border: 1px solid #ddd;
@@ -22,7 +27,7 @@ form#new-post input[type=text] {
   font-size: 14px;
 }
 
-form#new-post button {
+.form-button {
   padding: 10px 20px;
   border-radius: 4px;
   border: 0;
@@ -31,4 +36,5 @@ form#new-post button {
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  width: 100%;
 }
