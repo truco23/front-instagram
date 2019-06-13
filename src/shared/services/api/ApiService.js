@@ -17,6 +17,14 @@ class ApiService {
         let body = JSON.stringify(params[0]);
         
         return body;
+    };
+
+    resOk(response) {
+        
+        if(!response.ok) {
+            console.log(response.statusText);
+            return response.statusText;
+        };
     }
 
     async get(path) {
@@ -44,10 +52,8 @@ class ApiService {
                     body
                 });
 
-            if(!response.ok) {
-                console.log(response.statusText);
-                return response.statusText;
-            };  
+            
+            this.resOk(response);
 
             response = await response.json();
             return response;
@@ -56,7 +62,40 @@ class ApiService {
             console.log(error);
             return error;
         };
-    }
+    };
+
+    async create(path, post) {
+
+        try {
+
+            const { image, author, place, description, hastag } = post;
+            const headers = this.setHeader();
+            let formData = new FormData();
+
+            formData.append('filename', image);
+            formData.append('auhtor', author);
+            formData.append('place', place);
+            formData.append('description', description);
+            formData.append('hastag', hastag);
+            
+            // const body = this.setBody(formData);
+          
+            let response = await fetch(`${ api }${ path }`, {
+                headers,
+                method: 'POST',
+                body: formData
+            });
+
+            this.resOk(response);
+
+            response = await response.json();
+            return response;
+        } catch (error) {
+            console.log(error);
+            return error;
+        };
+        
+    };
 };
 
 export default ApiService;
