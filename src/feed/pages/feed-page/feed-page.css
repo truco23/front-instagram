@@ -1,0 +1,68 @@
+.feed {
+    background: #fff;
+    border-radius: .2em;
+    max-width: 500px;
+    margin: .5em auto;
+    padding: 1em;
+    color: #333;
+}
+
+.feed-header {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    padding-bottom: 1em;
+}
+
+.feed-header-autor {
+    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.feed-header-local {
+    font-size: .8em;
+    color: #aaa;
+    margin-top: .2em;
+}
+
+.feed-figure {
+    background: #ccc;
+    max-width: 500px;
+    max-height: 320px;
+    width: 100%;
+    height: 320px;
+}
+
+.feed-body-img {
+    width: 100%;
+    height: 100%;
+}
+
+.feed-footer {
+    margin-top: 1em;
+}
+
+.feed-footer-list,
+.feed-footer-listInfo {
+    list-style: none;
+}
+
+.feed-footer-item {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: .5em;
+}
+
+.feed-footer-listItem {
+    margin: .5em 0;
+}
+
+.feed-footer-listLikes {
+    font-weight: bold;
+}
+
+.feed-footer-listHash {
+    color: #7274ec;
+    font-size: .9em;
+}

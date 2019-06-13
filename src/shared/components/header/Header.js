@@ -10,23 +10,25 @@ class Header extends Component {
     render() { 
         return (  
             <header className="header">
-                <Link to="/">
-                    <img 
-                        className="header-logo"
-                        src={ logo } 
-                        alt="Instagram logo" 
-                        title="Instagram logo" 
-                    />
-                </Link>
+                <nav className="header-nav">
+                    <Link to="/">
+                        <img 
+                            className="header-logo"
+                            src={ logo } 
+                            alt="Instagram logo" 
+                            title="Instagram logo" 
+                        />
+                    </Link>
 
-                <Link to="/new">
-                    <img 
-                        className="header-logo"
-                        src={ camera } 
-                        alt="Cadastrar novo post" 
-                        title="Cadastrar novo post" 
-                    />
-                </Link>
+                    <Link to="/new">
+                        <img 
+                            className="header-logo"
+                            src={ camera } 
+                            alt="Cadastrar novo post" 
+                            title="Cadastrar novo post" 
+                        />
+                    </Link>
+                </nav>
             </header>
         );
     }
