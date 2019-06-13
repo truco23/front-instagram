@@ -17,8 +17,22 @@ class FeedPage extends Component {
     };
     
     async componentDidMount() {
+
         const posts = await apiService.get('posts');
         this.setState({ posts });
+    };
+
+    handleLike = async post => {
+        
+        let postLike = await apiService.like('/post/like/', post);
+        
+        this.setState({ 
+            posts:  this.state.posts.map(post => 
+                post._id === postLike._id ? postLike : post
+            )
+        });
+
+        console.log(postLike);
     };
 
     render() {
@@ -48,7 +62,11 @@ class FeedPage extends Component {
                                 <footer className="feed-footer">
                                     <ul className="feed-footer-list">
                                         <li className="feed-footer-item">
-                                            <img className="feed-footer-link" src={ like } alt="curtida" title="curtida" />
+                                            <button className="feed-footer-likeButtom"
+                                                type="button"
+                                                onClick={ () => this.handleLike(post) }>
+                                                <img className="feed-footer-link" src={ like } alt="curtida" title="curtida" />
+                                            </button>
                                         </li>
         
                                         <li className="feed-footer-item">

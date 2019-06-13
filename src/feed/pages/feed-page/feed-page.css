@@ -58,6 +58,12 @@
     margin: .5em 0;
 }
 
+.feed-footer-likeButtom {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+}
+
 .feed-footer-listLikes {
     font-weight: bold;
 }
