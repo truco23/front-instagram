@@ -9,9 +9,8 @@ function App() {
         appRoutes.map((route, indice) => {
 
           return(
-            <Suspense fallback={ <div>Carregando aguarde...</div> }>
+            <Suspense key={ indice } fallback={ <div>Carregando aguarde...</div> }>
               <Route 
-                key={ indice }
                 exact={ route.exact }
                 path={ route.path }
                 component={ route.component }
