@@ -6,6 +6,7 @@ import like from '../../../assets/like.svg';
 import more from '../../../assets/more.svg';
 import send from '../../../assets/send.svg';
 import ApiService from '../../../shared/services/api/ApiService';
+import io from 'socket.io-client';
 
 const apiService = new ApiService();
 const imageUrlBase = 'http://localhost:3001/images';
@@ -18,22 +19,29 @@ class FeedPage extends Component {
     
     async componentDidMount() {
 
+        this.realTime();
+        
         const posts = await apiService.get('posts');
         this.setState({ posts });
     };
 
     handleLike = async post => {
         
-        let postLike = await apiService.like('/post/like/', post);
-        
-        this.setState({ 
-            posts:  this.state.posts.map(post => 
-                post._id === postLike._id ? postLike : post
-            )
-        });
-
-        console.log(postLike);
+        await apiService.like('/post/like/', post);
     };
+    
+    realTime() {
+        const socket = io('http://localhost:3001');
+        
+        socket.on('like-post', postLike => {
+    
+            this.setState({ 
+                posts:  this.state.posts.map(post => 
+                    post._id === postLike._id ? postLike : post
+                )
+            });
+        })
+    }
 
     render() {
         const { posts } = this.state;
