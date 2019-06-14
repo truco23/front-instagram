@@ -40,7 +40,9 @@ class FeedPage extends Component {
                     post._id === postLike._id ? postLike : post
                 )
             });
-        })
+        });
+
+        socket.on('new-post', newPost => this.setState({ posts: [newPost, ...this.state.posts] }))
     }
 
     render() {
