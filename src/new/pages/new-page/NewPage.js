@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
 import './new-page.css';
 import ApiService from '../../../shared/services/api/ApiService';
 
 const apiService = new ApiService();
+const api = axios.create({ baseURL: 'http://localhost:3001' });
 
 class NewPage extends Component {
 
@@ -18,10 +19,24 @@ class NewPage extends Component {
     handleSubmit = async e => {
 
         e.preventDefault();
+        
+        try {
+            
+            const data = new FormData();
+            data.append('image', this.state.image);
+            data.append('author', this.state.author);
+            data.append('place', this.state.place);
+            data.append('description', this.state.description);
+            data.append('hastag', this.state.hastag);
 
-        const newPost = await apiService.create('/posts', this.state);
-        console.log(newPost);
-        console.log(this.props);
+            await api.post('posts', data);
+            this.props.history.push('/');
+        } catch (error) {
+            console.log(error);
+        }
+
+        // const newPost = await apiService.create('/posts', this.state);
+        // console.log(newPost);
     };
 
     handleChangeImage = e => {
@@ -41,6 +56,7 @@ class NewPage extends Component {
                     <input 
                         className="form-input"
                         type="file"
+                        name="image"
                         onChange={ this.handleChangeImage }
                     />
 

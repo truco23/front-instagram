@@ -2,12 +2,25 @@ const api = 'http://localhost:3001';
 
 class ApiService {
 
-    setHeader() {
+    setHeader(json, formData) {
 
-        let headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        };
+        let headers = null;
+
+        if(json) {
+
+            return headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            };
+        }
+
+        if(formData) {
+            
+            return headers = {
+                'Accept': '*',
+                'Content-Type': 'multipart/form-data; boundary="simple boundary"'
+            }
+        }
 
         return headers;
     };
@@ -44,7 +57,7 @@ class ApiService {
         
         try {
             
-            let headers = this.setHeader();
+            let headers = this.setHeader(true, false);
             let body = this.setBody(post);
             let response = await fetch(`${ api }${ path }${ post._id }`,{
                     headers,
@@ -67,27 +80,30 @@ class ApiService {
     async create(path, post) {
 
         try {
-
-            const { image, author, place, description, hastag } = post;
-            const headers = this.setHeader();
-            let formData = new FormData();
-
-            formData.append('filename', image);
-            formData.append('auhtor', author);
-            formData.append('place', place);
-            formData.append('description', description);
-            formData.append('hastag', hastag);
+            console.log(post);
             
-            // const body = this.setBody(formData);
-          
+            const { image, author, place, description, hastag } = post;
+            // const headers = this.setHeader(false, true);
+            
+            let data = new FormData();
+            data.append('image', post.image);
+            data.append('author', post.author);
+            data.append('place', post.place);
+            data.append('description', post.description);
+            data.append('hastag', post.hastag);
+            
+            const headers = {
+                'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryffRmYk3HlzA78g5Q'
+            };
+            const body = data;
+            
             let response = await fetch(`${ api }${ path }`, {
                 headers,
                 method: 'POST',
-                body: formData
+                body
             });
 
-            this.resOk(response);
-
+            await this.resOk(response);
             response = await response.json();
             return response;
         } catch (error) {
